@@ -36,6 +36,12 @@
         <script src="data/gestores_3.js"></script>
         <script src="data/empresas_recoleccion_4.js"></script>
         <script src="data/acopio_5.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.EasyButton/2.4.0/easy-button.js"></script>
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.css">
+		<script src="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.js"></script>
+				 <link rel="stylesheet" href="geocodificar/l.geosearch.css" />
+		 <script src="geocodificar/l.control.geosearch.js"></script>
+    <script src="geocodificar/l.geosearch.provider.esri.js"></script>
         <script>
         var map = L.map('map', {
             zoomControl:true, maxZoom:28, minZoom:1
@@ -336,8 +342,34 @@
         });
         map.addLayer(layer_PlaneacinMunicipalComunas_6);
         var baseMaps = {};
-        L.control.layers(baseMaps,{"Planeación Municipal: Comunas": layer_PlaneacinMunicipalComunas_6,'<img src="legend/acopio_5.png" /> Puntos de acopio': layer_acopio_5,'<img src="legend/empresas_recoleccion_4.png" /> Empresas de recolección': layer_empresas_recoleccion_4,'<img src="legend/gestores_3.png" /> Gestores de residuos': layer_gestores_3,'<img src="legend/microrutas_2.png" /> Micro rutas': layer_microrutas_2,'<img src="legend/ptos_criticos_1.png" /> Puntos criticos': layer_ptos_criticos_1,"OpenStreetMap": layer_OpenStreetMap_0,},{collapsed:false}).addTo(map);
+        L.control.layers(baseMaps,{"Comunas": layer_PlaneacinMunicipalComunas_6,'<img src="legend/acopio_5.png" /> Puntos de acopio': layer_acopio_5,'<img src="legend/empresas_recoleccion_4.png" /> Empresas de recolección': layer_empresas_recoleccion_4,'<img src="legend/gestores_3.png" /> Gestores de residuos': layer_gestores_3,'<img src="legend/microrutas_2.png" /> Micro rutas': layer_microrutas_2,'<img src="legend/ptos_criticos_1.png" /> Puntos criticos': layer_ptos_criticos_1,"OpenStreetMap": layer_OpenStreetMap_0,},{collapsed:false}).addTo(map);
         setBounds();
+		
+		L.easyButton('<img src="images/ubicacion.png"  align="absmiddle" height="16px" >', function buscarLocalizacion(e)
+		  {
+				var browserLat;
+var browserLong;
+
+navigator.geolocation.getCurrentPosition(function(position) {
+    browserLat =  position.coords.latitude;
+    browserLong = position.coords.longitude;
+
+    marker_actual = L.marker([browserLat,browserLong]).addTo(map);
+    marker_actual.bindPopup('<b>Hola </b><br>Tu estas aqui').openPopup();
+    map.setView([browserLat,browserLong], 18);
+
+    console.log(browserLat);
+    console.log(browserLong);
+}, function(err) {
+    console.error(err);
+});
+}).addTo(map);
+
+new L.Control.GeoSearch({provider: new L.GeoSearch.Provider.Esri(),
+				searchLabel: 'Buscar direccion...',
+			notFoundMessage: 'La direccion no puede ser encontrada.',
+		zoomLevel:15}).addTo(map);
+			
         </script>
     </body>
 </html>
