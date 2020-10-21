@@ -42,6 +42,8 @@
 				 <link rel="stylesheet" href="geocodificar/l.geosearch.css" />
 		 <script src="geocodificar/l.control.geosearch.js"></script>
     <script src="geocodificar/l.geosearch.provider.esri.js"></script>
+	<script src="spin/spin.min.js" charset="utf-8"></script>
+	<script src="spin/leaflet.spin.min.js" charset="utf-8"></script>
 		<script src="print/dist/bundle.js"></script>
 
         <script>
@@ -368,6 +370,9 @@ new L.Control.GeoSearch({provider: new L.GeoSearch.Provider.Esri(),
 				searchLabel: 'Buscar direccion...',
 			notFoundMessage: 'La direccion no puede ser encontrada.',
 		zoomLevel:15}).addTo(map);
+		
+		map.spin(true);
+
 		
 		var printer = L.easyPrint({
       		tileLayer: layer_OpenStreetMap_0,
