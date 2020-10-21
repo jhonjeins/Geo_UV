@@ -328,21 +328,10 @@
         map.addLayer(layer_acopio_5);
         map.createPane('pane_PlaneacinMunicipalComunas_6');
         map.getPane('pane_PlaneacinMunicipalComunas_6').style.zIndex = 406;
-        var layer_PlaneacinMunicipalComunas_6 = L.WMS.layer("http://idesc.cali.gov.co:8081/geoserver/wms?version=1.1.0", "idesc:mc_comunas", {
-            pane: 'pane_PlaneacinMunicipalComunas_6',
-            format: 'image/png',
-            uppercase: true,
-            transparent: true,
-            continuousWorld : true,
-            tiled: true,
-            info_format: 'text/html',
-            opacity: 1,
-            identify: false,
-            attribution: '',
-        });
-        map.addLayer(layer_PlaneacinMunicipalComunas_6);
+        var wmsLayerComunas_6= L.tileLayer.wms("http://idesc.cali.gov.co:8081/geoserver/wms?version=1.1.0", {layers: "idesc:mc_comunas"}).addTo(map);
+        map.addLayer(wmsLayerComunas_6);
         var baseMaps = {};
-        L.control.layers(baseMaps,{"Comunas": layer_PlaneacinMunicipalComunas_6,'<img src="legend/acopio_5.png" /> Puntos de acopio': layer_acopio_5,'<img src="legend/empresas_recoleccion_4.png" /> Empresas de recolección': layer_empresas_recoleccion_4,'<img src="legend/gestores_3.png" /> Gestores de residuos': layer_gestores_3,'<img src="legend/microrutas_2.png" /> Micro rutas': layer_microrutas_2,'<img src="legend/ptos_criticos_1.png" /> Puntos criticos': layer_ptos_criticos_1,"OpenStreetMap": layer_OpenStreetMap_0,},{collapsed:false}).addTo(map);
+        L.control.layers(baseMaps,{"Comunas": wmsLayerComunas_6,'<img src="legend/acopio_5.png" /> Puntos de acopio': layer_acopio_5,'<img src="legend/empresas_recoleccion_4.png" /> Empresas de recolección': layer_empresas_recoleccion_4,'<img src="legend/gestores_3.png" /> Gestores de residuos': layer_gestores_3,'<img src="legend/microrutas_2.png" /> Micro rutas': layer_microrutas_2,'<img src="legend/ptos_criticos_1.png" /> Puntos criticos': layer_ptos_criticos_1,"OpenStreetMap": layer_OpenStreetMap_0,},{collapsed:false}).addTo(map);
         setBounds();
 		
 		L.easyButton('<img src="images/ubicacion.png"  align="absmiddle" height="16px" >', function buscarLocalizacion(e)
